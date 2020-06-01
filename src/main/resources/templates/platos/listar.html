@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1 th:text="${titulo}"></h1>
+	
+	<a class="btn btn-primary" th:href="@{/platos/form}">Nuevo</a>
+	
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">Nombre</th>
+				<th scope="col">Precio</th>
+				<th scope="col">Estado</th>
+				<th scope="col" colspan="2">Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="plato: ${platos}">
+				<td th:text="${plato.nombre}"></td>
+				<td th:text="${plato.precio}"></td>
+				<td th:text="${plato.estado}"></td>
+				<td>
+					<a class="btn btn-primary" 
+						th:href="@{/platos/form/} + ${plato.id}">
+						Editar
+					</a>
+				</td>
+				<td>
+					<a class="btn btn-primary" 
+						th:href="@{/platos/eliminar/} + ${plato.id}"
+						onclick="return confirm('estas seguro que desea eliminar?')">
+						Eliminar
+					</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

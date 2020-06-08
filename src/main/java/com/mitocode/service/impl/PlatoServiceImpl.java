@@ -32,13 +32,13 @@ public class PlatoServiceImpl implements IPlatoService {
 	}
 
 	@Override
-	public Mono<Plato> listarPorId(String v) {
+	public Mono<Plato> listarPorIdService(String v) {
 		return repo.findById(v);
 	}
 
 	@Override
-	public Mono<Void> eliminar(String v) {
+	public Mono<Void> eliminarService(String v) {
 		return repo.deleteById(v);
 	}
-
+	
 }

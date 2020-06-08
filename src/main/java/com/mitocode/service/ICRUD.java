@@ -11,8 +11,8 @@ public interface ICRUD<T, V> {
 	
 	Flux<T> listarService();
 	
-	Mono<T> listarPorId(V v);
+	Mono<T> listarPorIdService(V v);
 	
-	Mono<Void> eliminar(V v);
+	Mono<Void> eliminarService(V v);
 	
 }

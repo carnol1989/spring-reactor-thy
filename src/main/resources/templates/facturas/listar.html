@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+</head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container">
+		<div class="card">
+			<div class="card-header text-white bg-dark">
+				Generar Facturas
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead class="bg-dark text-white">
+							<tr>
+								<th>Nombres</th>
+								<th>Apellidos</th>
+								<th>Fec. Nacimiento</th>
+								<th>Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="cliente:${pageSp.content}">
+								<td th:text="${cliente.nombres}"></td>
+								<td th:text="${cliente.apellidos}"></td>
+								<td th:text="${#temporals.format(cliente.fechaNac, 'dd/MM/yyyy')}"></td>
+								<td>
+									<a th:href="@{'/facturas/form/' + ${cliente.id}}" 
+										class="btn btn-primary">
+										Generar	
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<header th:replace="layout/layout :: footer"></header>
+</body>
+</html>

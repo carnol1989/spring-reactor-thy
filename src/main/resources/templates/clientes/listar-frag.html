@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout/layout :: head"></head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title th:text="${titulo}">Insert title here</title>
 </head>
 <body>
 	<header th:replace="layout/layout :: header"></header>
@@ -12,27 +12,25 @@
 		<div class="alert alert-success" th:if="${param.success != null}" th:text="${param.success}"></div>
 	
 		<h1 th:text="${titulo}"></h1>
-
-		<a class="btn btn-primary" th:href="@{/platos/form}">Nuevo</a>
-
+		<a class="btn btn-primary" th:href="@{/clientes/form}">Nuevo</a>
 		<table class="table">
 			<thead>
 				<tr>
-					<th scope="col">Nombre</th>
-					<th scope="col">Precio</th>
-					<th scope="col">Estado</th>
+					<th scope="col">Nombres</th>
+					<th scope="col">Apellidos</th>
+					<th scope="col">Fecha Nacimiento</th>
 					<th scope="col" colspan="2">Acciones</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="plato: ${platos}">
-					<td th:text="${plato.nombre}"></td>
-					<td th:text="${plato.precio}"></td>
-					<td th:text="${plato.estado}"></td>
+				<tr th:each="cliente: ${clientes}">
+					<td th:text="${cliente.nombres}"></td>
+					<td th:text="${cliente.apellidos}"></td>
+					<td th:text="${#temporals.format(cliente.fechaNac, 'dd/MM/yyyy')}"></td>
 					<td><a class="btn btn-primary"
-						th:href="@{/platos/form/} + ${plato.id}"> Editar </a></td>
+						th:href="@{/clientes/form/} + ${cliente.id}"> Editar </a></td>
 					<td><a class="btn btn-primary"
-						th:href="@{/platos/eliminar/} + ${plato.id}"
+						th:href="@{/clientes/eliminar/} + ${cliente.id}"
 						onclick="return confirm('estas seguro que desea eliminar?')">
 							Eliminar </a></td>
 				</tr>

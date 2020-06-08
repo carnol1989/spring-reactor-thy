@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+</head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container">
+		<h1 th:text="${titulo}"></h1>
+
+		<div>
+			<a th:href="@{/clientes/listar}">Volver</a>
+
+			<form th:action="@{/clientes/operar}" method="post"
+				th:object="${cliente}" enctype="multipart/form-data">
+				<small class="alert alert-danger"
+					th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}">
+				</small> <br /> <br /> <input th:if="${cliente.id != null}" type="hidden"
+					th:field="*{id}" />
+				<div>
+					<label for="nombre">Nombre</label>
+					<div>
+						<input class="form-control" type="text" th:field="*{nombres}" />
+					</div>
+					<small class="alert alert-danger"
+						th:if="${#fields.hasErrors('nombres')}" th:errors="*{nombres}">
+					</small>
+				</div>
+				<br />
+				<div>
+					<label for="apellidos">Apellidos</label>
+					<div>
+						<input class="form-control" type="text" th:field="*{apellidos}" />
+					</div>
+					<small class="alert alert-danger"
+						th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}">
+					</small>
+				</div>
+				<br />
+				<div>
+					<label for="fechaNac">Fecha Nacimiento</label>
+					<div>
+						<input type="text" class="form-control" th:field="*{fechaNac}" />
+					</div>
+					<small class="alert alert-danger"
+						th:if="${#fields.hasErrors('fechaNac')}" th:errors="*{fechaNac}">
+					</small>
+				</div>
+				<br />
+				<div>
+					<label for="foto">Foto</label>
+					<div>
+						<input type="file" name="file" />
+					</div>
+				</div>
+				<br />
+				<div>
+					<img th:if="${cliente.urlFoto != null && #strings.length(cliente.urlFoto) > 0}"  
+						style="max-width: 25%;" th:src="@{/clientes/subidas/img/} + ${cliente.urlFoto}" 
+						th:alt="${cliente.urlFoto}" />
+				</div>
+				<br />
+				<div>
+					<div>
+						<input type="submit" class="btn btn-primary" th:value="${boton}" />
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<header th:replace="layout/layout :: footer"></header>
+</body>
+</html>

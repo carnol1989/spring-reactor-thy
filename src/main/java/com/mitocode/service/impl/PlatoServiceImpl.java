@@ -40,5 +40,11 @@ public class PlatoServiceImpl implements IPlatoService {
 	public Mono<Void> eliminarService(String v) {
 		return repo.deleteById(v);
 	}
+
+	@Override
+	public Flux<Plato> buscarPorNombreService(String nombre) {
+		//SELECT * FROM PLATO p WHERE p.nombre = ?
+		return repo.findByNombre(nombre);
+	}
 	
 }

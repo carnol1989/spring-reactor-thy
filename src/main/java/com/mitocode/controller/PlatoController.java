@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -94,6 +95,15 @@ public class PlatoController {
 					return service.eliminarService(p.getId()); //Mono<Void>
 				}).then(Mono.just("redirect:/platos/listar"))
 				.onErrorResume(ex -> Mono.just("redirect:/platos/listar?error=Error%20Interno")); //+ ex.getMessage()));
+	}
+	
+	@GetMapping(value = "/cargarPlatos/{term}", produces = {"application/json"})
+	public @ResponseBody Flux<Plato> buscarPorNombreController(@PathVariable String term) {
+		Flux<Plato> fluxPlatos = service.buscarPorNombreService(term);
+		fluxPlatos.doOnNext(p -> {
+			log.info("INFO " + p.getNombre());
+		});
+		return fluxPlatos;
 	}
 	
 }

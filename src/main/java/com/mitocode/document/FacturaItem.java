@@ -2,9 +2,8 @@ package com.mitocode.document;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collation = "facturas_items")
+//@Document(collection = "facturas_items")
 public class FacturaItem {
 
 	@Id
@@ -47,6 +46,10 @@ public class FacturaItem {
 
 	public void setPlato(Plato plato) {
 		this.plato = plato;
+	}
+	
+	public Double calcularMonto() {
+		return cantidad.doubleValue() * plato.getPrecio();
 	}
 	
 }

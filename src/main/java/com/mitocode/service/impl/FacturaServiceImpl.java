@@ -1,5 +1,7 @@
 package com.mitocode.service.impl;
 
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -45,8 +47,14 @@ public class FacturaServiceImpl implements IFacturaService {
 
 	@Override
 	public Mono<PageSupport<Factura>> listarPaginaService(Pageable page) {
-		// TODO Auto-generated method stub
-		return null;
+		return repo.findAll().collectList()
+				.map(lista -> new PageSupport<>(
+						lista
+						.stream()
+						.skip(page.getPageNumber() * page.getPageSize())
+						.limit(page.getPageSize())
+						.collect(Collectors.toList()), 
+					page.getPageNumber(), page.getPageSize(), lista.size()));
 	}
 	
 }

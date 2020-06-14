@@ -1,11 +1,14 @@
 package com.mitocode.service.impl;
 
 import java.time.Duration;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.mitocode.document.Cliente;
+import com.mitocode.pagination.PageSupport;
 import com.mitocode.repo.IClienteRepo;
 import com.mitocode.service.IClienteService;
 
@@ -53,4 +56,16 @@ public class ClienteServiceImpl implements IClienteService {
 		return repo.findAll().repeat(700);
 	}
 
+	@Override
+	public Mono<PageSupport<Cliente>> listarPaginaService(Pageable page) {
+		return repo.findAll().collectList()
+				.map(lista -> new PageSupport<>(
+						lista
+						.stream()
+						.skip(page.getPageNumber() * page.getPageSize())
+						.limit(page.getPageSize())
+						.collect(Collectors.toList()), 
+					page.getPageNumber(), page.getPageSize(), lista.size()));
+	}
+	
 }

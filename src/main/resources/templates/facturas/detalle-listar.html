@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	
+	<div class="container">
+		<div class="card">
+			<div class="card-header text-white bg-dark">
+				Listado de Facturas
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead class="bg-dark text-white">
+							<tr>
+								<th>Cliente</th>
+								<th>Fecha</th>
+								<th>Ver</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="factura:${facturas}">
+								<td th:text="${factura.cliente.nombres} + ' ' + ${factura.cliente.apellidos}"></td>
+								<td th:text="${#temporals.format(factura.creadoEn, 'dd/MM/yyyy')}"></td>
+								<td>
+									<a th:href="@{'/facturas/detalle/' + ${factura.id}}" class="btn btn-primary">
+										Ver
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

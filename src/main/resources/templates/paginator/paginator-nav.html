@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<body>
+	<!-- ${url} => ruta actual => facturas/listar -->
+
+	<nav th:fragment="paginator">
+		<ul class="pagination">
+			<li class="page-item"><a class="page-link" href="#"
+				th:href="@{${url}(page=0)}"> Primero </a></li>
+			<th:block th:each="i: ${#numbers.sequence(1, pageSp.totalPages())}">
+				<li class="page-item"><a class="page-link" href="#"
+					th:href="@{${url}(page=${i - 1})}" th:text="${i}"> </a></li>
+			</th:block>
+			<li class="page-item"><a class="page-link" href="#"
+				th:href="@{${url}(page=${pageSp.totalPages() - 1})}"> Ultimo </a></li>
+		</ul>
+	</nav>
+</body>
+</html>

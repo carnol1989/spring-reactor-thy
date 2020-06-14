@@ -2,13 +2,14 @@ package com.mitocode.document;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
-@Document(collation = "facturas")
+@Document(collection = "facturas")
 public class Factura {
 
 	@Id
@@ -72,6 +73,10 @@ public class Factura {
 
 	public void setCreadoEn(LocalDateTime creadoEn) {
 		this.creadoEn = creadoEn;
+	}
+	
+	public Double getTotal() {
+		return items.stream().collect(Collectors.summingDouble(FacturaItem::calcularMonto));
 	}
 	
 }

@@ -29,6 +29,14 @@ public class Plato {
 	@NotNull
 	private boolean estado;
 
+	public Plato() {
+		
+	}
+
+	public Plato(String id) {
+		this.id = id;
+	}
+
 	public String getId() {
 		return id;
 	}

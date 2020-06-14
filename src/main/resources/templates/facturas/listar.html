@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout/layout :: head"></head>
-</head>
 <body>
 	<header th:replace="layout/layout :: header"></header>
 
@@ -36,6 +35,7 @@
 						</tbody>
 					</table>
 				</div>
+				<nav th:replace="paginator/paginator-nav :: paginator"></nav>
 			</div>
 		</div>
 	</div>

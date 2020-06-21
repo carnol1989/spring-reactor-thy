@@ -75,7 +75,7 @@ public class FacturaController {
 			@RequestParam(value = "clienteId") String clienteId, 
 			@RequestParam(value = "item_id[]", name = "item_id[]", required = false) String[] itemId, 
 			@RequestParam(value = "quantity[]", name = "quantity[]", required = false) Integer[] quantity, 
-			SessionStatus status) {
+			SessionStatus status) throws InterruptedException {
 		Cliente cliente = new Cliente();
 		cliente.setId(clienteId);
 		
@@ -93,7 +93,10 @@ public class FacturaController {
 		status.setComplete();
 		model.addAttribute("success", "Factura Generada");
 		
-		return facturaService.registrarService(factura)
+//		return facturaService.registrarService(factura)
+//				.then(Mono.just("redirect:/facturas/listar?exito=se+registro+correctamente"));
+		
+		return facturaService.registrarTransaccionalService(factura)
 				.then(Mono.just("redirect:/facturas/listar?exito=se+registro+correctamente"));
 	}
 	

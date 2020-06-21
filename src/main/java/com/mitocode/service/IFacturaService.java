@@ -10,5 +10,7 @@ import reactor.core.publisher.Mono;
 public interface IFacturaService extends ICRUD<Factura, String> {
 
 	Mono<PageSupport<Factura>> listarPaginaService(Pageable page);
+
+	Mono<Factura> registrarTransaccionalService(Factura factura) throws InterruptedException;
 	
 }
